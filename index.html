@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,7 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
@@ -21,8 +22,9 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            position: relative;
         }
-        
+
         .container {
             max-width: 500px;
             width: 100%;
@@ -31,13 +33,44 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             text-align: center;
+            position: relative;
         }
-        
+
+        /* Language Selector - Fixed position */
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+
+        .language-selector select {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 2px solid #e0e7ff;
+            background-color: white;
+            color: #4f46e5;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .language-selector select:hover {
+            border-color: #4f46e5;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+        }
+
+        .language-selector select:focus {
+            border-color: #4f46e5;
+        }
+
         /* Section photo */
         .photo-section {
             padding: 40px 20px 20px;
+            position: relative;
         }
-        
+
         .profile-photo {
             width: 180px;
             height: 180px;
@@ -45,30 +78,50 @@
             object-fit: cover;
             border: 5px solid #e0e7ff;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin: 0 auto;
         }
-        
+
+        .photo-fallback {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid #e0e7ff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: #4f46e5;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            font-weight: bold;
+            margin: 0 auto;
+            display: none; /* Caché par défaut */
+        }
+
         /* Section présentation */
         .presentation-section {
             padding: 0 30px 20px;
         }
-        
+
         h1 {
             color: #333;
             margin-bottom: 10px;
             font-size: 28px;
         }
-        
+
         p {
             color: #666;
             line-height: 1.6;
             margin-bottom: 25px;
+            text-align: justify;
         }
-        
+
         /* Section liens */
         .links-section {
             padding: 0 20px 30px;
         }
-        
+
         .social-links {
             display: flex;
             justify-content: center;
@@ -76,7 +129,7 @@
             gap: 15px;
             margin-bottom: 25px;
         }
-        
+
         .social-link {
             display: inline-flex;
             align-items: center;
@@ -90,38 +143,40 @@
             font-size: 20px;
             transition: all 0.3s ease;
         }
-        
+
         .social-link:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         /* Couleurs spécifiques pour chaque réseau social */
         .instagram:hover {
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             color: white;
         }
-        
+
         .facebook:hover {
             background-color: #3b5998;
             color: white;
         }
-        
+
         .linkedin:hover {
             background-color: #0077b5;
             color: white;
         }
+
         .whatsapp:hover {
             background-color: #25D366;
             color: white;
         }
+
         /* Boutons d'action */
         .action-buttons {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-        
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -134,22 +189,22 @@
             border: none;
             cursor: pointer;
         }
-        
+
         .btn-primary {
             background-color: #4f46e5;
             color: white;
         }
-        
+
         .btn-secondary {
             background-color: #f0f4ff;
             color: #4f46e5;
         }
-        
+
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         /* Footer */
         footer {
             padding: 20px;
@@ -157,51 +212,208 @@
             color: #888;
             font-size: 14px;
         }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 60px;
+            }
+
+            .language-selector {
+                position: fixed;
+                top: 10px;
+                right: 10px;
+            }
+
+            .presentation-section {
+                padding: 0 20px 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .profile-photo,
+            .photo-fallback {
+                width: 150px;
+                height: 150px;
+                font-size: 50px;
+            }
+
+            .social-link {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                border-radius: 15px;
+            }
+
+            .profile-photo,
+            .photo-fallback {
+                width: 130px;
+                height: 130px;
+                font-size: 40px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
+
 <body>
+    <div class="language-selector">
+        <select id="languageSelect" onchange="changeLanguage()">
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="es">🇪🇸 Español</option>
+        </select>
+    </div>
+
     <div class="container">
         <div class="photo-section">
-            <img src="assets/myphoto.jpg" alt="Photo d'Aziz Channoufi" class="profile-photo">
+            <img src="assets/myphoto.jpg" alt="Photo d'Aziz Channoufi" class="profile-photo" id="profileImage">
+            <div class="photo-fallback" id="photoFallback">AC</div>
         </div>
-        
+
         <div class="presentation-section">
             <h1>Aziz Channoufi</h1>
-            <p>
-Salut, je m’appelle Aziz. Je suis un jeune homme gentil, passionné d’aventure et amoureux de la mer. Je pratique la chasse sous-marine et la pêche. Je suis également coach en self-défense et freelance dans la création de sites web et d’applications mobiles. En tant qu’influenceur, je suis ravi que vous visitiez cette page. Vous trouverez ci-dessous tous mes contacts. Merci beaucoup et à bientôt !            </p>
+            <p id="description">
+                Salut, je m'appelle Aziz. Je suis un jeune homme gentil, passionné d'aventure et amoureux de la mer. Je
+                pratique la chasse sous-marine et la pêche. Je suis également coach en self-défense et freelance dans la
+                création de sites web et d'applications mobiles. En tant qu'influenceur, je suis ravi que vous visitiez
+                cette page. Vous trouverez ci-dessous tous mes contacts. Merci beaucoup et à bientôt ! </p>
         </div>
-        
+
         <div class="links-section">
             <div class="social-links">
-                <!-- Remplacez les # par vos liens réels -->
                 <a href="https://www.instagram.com/aziz.channoufi/" class="social-link instagram" title="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://www.facebook.com/aziz.channoufi.39/?_rdr" class="social-link facebook" title="Facebook">
+                <a href="https://www.facebook.com/aziz.channoufi.39/?_rdr" class="social-link facebook"
+                    title="Facebook">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/aziz-channoufi-a13246260/?originalSubdomain=tn" class="social-link linkedin" title="LinkedIn">
+                <a href="https://www.linkedin.com/in/aziz-channoufi-a13246260/?originalSubdomain=tn"
+                    class="social-link linkedin" title="LinkedIn">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
                 <a href="https://wa.me/+393444414036" class="social-link whatsapp" title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
             </div>
-            
+
             <div class="action-buttons">
                 <a href="mailto:channoufi4work@gmail.com" class="btn btn-primary">
-                    <i class="fas fa-envelope"></i> &nbsp; Me contacter par email
+                    <i class="fas fa-envelope"></i> &nbsp; <span id="emailBtnText">Contattami via email</span>
                 </a>
-                <!-- Lien vers votre CV dans le dossier assets -->
                 <a href="assets/Aziz_Channoufi_Resume.pdf" class="btn btn-secondary" target="_blank">
-                    <i class="fas fa-file-download"></i> &nbsp; Télécharger mon CV
+                    <i class="fas fa-file-download"></i> &nbsp; <span id="cvBtnText">Scarica il mio CV</span>
                 </a>
             </div>
         </div>
-        
+
         <footer>
-            <p>© 2025 Aziz Channoufi. Tous droits réservés.</p>
+            <p id="footerText">© 2025 Aziz Channoufi. Tutti i diritti riservati.</p>
         </footer>
     </div>
+
+    <script>
+        // Language translations
+        const translations = {
+            it: {
+                title: "Aziz Channoufi - Portfolio",
+                description: "Ciao, mi chiamo Aziz. Sono un giovane gentile, appassionato di avventura e amante del mare. Pratico la pesca subacquea e la pesca. Sono anche un coach di autodifesa e freelance nella creazione di siti web e applicazioni mobili. Come influencer, sono felice che tu visiti questa pagina. Troverai tutti i miei contatti qui sotto. Grazie mille e a presto!",
+                emailBtn: "Contattami via email",
+                cvBtn: "Scarica il mio CV",
+                footer: "© 2025 Aziz Channoufi. Tutti i diritti riservati."
+            },
+            fr: {
+                title: "Aziz Channoufi - Portfolio",
+                description: "Salut, je m'appelle Aziz. Je suis un jeune homme gentil, passionné d'aventure et amoureux de la mer. Je pratique la chasse sous-marine e la pêche. Je suis également coach en self-défense et freelance dans la création de sites web et d'applications mobiles. En tant qu'influenceur, je suis ravi que vous visitiez cette page. Vous trouverez ci-dessous tous mes contacts. Merci beaucoup et à bientôt !",
+                emailBtn: "Me contacter par email",
+                cvBtn: "Télécharger mon CV",
+                footer: "© 2025 Aziz Channoufi. Tous droits réservés."
+            },
+            en: {
+                title: "Aziz Channoufi - Portfolio",
+                description: "Hi, my name is Aziz. I'm a kind young man, passionate about adventure and in love with the sea. I practice spearfishing and fishing. I'm also a self-defense coach and freelance in creating websites and mobile applications. As an influencer, I'm delighted that you're visiting this page. You'll find all my contacts below. Thank you very much and see you soon!",
+                emailBtn: "Contact me by email",
+                cvBtn: "Download my CV",
+                footer: "© 2025 Aziz Channoufi. All rights reserved."
+            },
+            es: {
+                title: "Aziz Channoufi - Portfolio",
+                description: "Hola, me llamo Aziz. Soy un joven amable, apasionado por la aventura y enamorado del mar. Practico la pesca submarina y la pesca. También soy entrenador de autodefensa y freelance en la creación de sitios web y aplicaciones móviles. Como influencer, estoy encantado de que visites esta página. Encontrarás todos mis contactos a continuación. ¡Muchas gracias y hasta pronto!",
+                emailBtn: "Contáctame por correo electrónico",
+                cvBtn: "Descargar mi CV",
+                footer: "© 2025 Aziz Channoufi. Todos los derechos reservados."
+            }
+        };
+
+        // Function to change language
+        function changeLanguage() {
+            const selectedLang = document.getElementById('languageSelect').value;
+            const translation = translations[selectedLang];
+
+            // Update page title
+            document.title = translation.title;
+
+            // Update description - SÉCURISÉ avec textContent
+            document.getElementById('description').textContent = translation.description;
+
+            // Update button texts - SÉCURISÉ avec textContent
+            document.getElementById('emailBtnText').textContent = translation.emailBtn;
+            document.getElementById('cvBtnText').textContent = translation.cvBtn;
+
+            // Update footer - SÉCURISÉ avec textContent
+            document.getElementById('footerText').textContent = translation.footer;
+
+            // Update html lang attribute
+            document.documentElement.lang = selectedLang;
+
+            // Save preference to localStorage
+            localStorage.setItem('preferredLanguage', selectedLang);
+        }
+
+        // Handle photo loading error
+        function handlePhotoError() {
+            const photo = document.getElementById('profileImage');
+            const fallback = document.getElementById('photoFallback');
+            
+            // Cacher la photo et afficher le fallback
+            photo.style.display = 'none';
+            fallback.style.display = 'flex';
+        }
+
+        // Load saved language preference on page load
+        window.addEventListener('DOMContentLoaded', function () {
+            // Charger la langue
+            const savedLang = localStorage.getItem('preferredLanguage') || 'it';
+            document.getElementById('languageSelect').value = savedLang;
+            changeLanguage();
+            
+            // Configurer le gestionnaire d'erreur pour la photo
+            const photo = document.getElementById('profileImage');
+            photo.onerror = handlePhotoError;
+            
+            // Vérifier si l'image est déjà chargée avec erreur
+            if (photo.complete && photo.naturalHeight === 0) {
+                handlePhotoError();
+            }
+        });
+    </script>
 </body>
+
 </html>
