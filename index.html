@@ -96,7 +96,8 @@
             font-size: 60px;
             font-weight: bold;
             margin: 0 auto;
-            display: none; /* Caché par défaut */
+            display: none;
+            /* Caché par défaut */
         }
 
         /* Section présentation */
@@ -268,6 +269,108 @@
                 font-size: 14px;
             }
         }
+
+        /* Booking Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e7ff;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #4f46e5;
+            outline: none;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #4f46e5;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #4338ca;
+        }
     </style>
 </head>
 
@@ -318,15 +421,48 @@
                 <a href="mailto:channoufi4work@gmail.com" class="btn btn-primary">
                     <i class="fas fa-envelope"></i> &nbsp; <span id="emailBtnText">Contattami via email</span>
                 </a>
-                <a href="assets/Aziz_Channoufi_Resume.pdf" class="btn btn-secondary" target="_blank">
+                <!-- <a href="assets/Aziz_Channoufi_Resume.pdf" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-file-download"></i> &nbsp; <span id="cvBtnText">Scarica il mio CV</span>
+                </a> -->
+                <a href="assets/Curriculum Vitae adetto (1).pdf" class="btn btn-secondary" target="_blank">
                     <i class="fas fa-file-download"></i> &nbsp; <span id="cvBtnText">Scarica il mio CV</span>
                 </a>
+                <button onclick="openBookingModal()" class="btn btn-primary" style="background-color: #10b981;">
+                    <i class="fas fa-calendar-alt"></i> &nbsp; <span id="bookBtnText">Prenota una chiamata</span>
+                </button>
             </div>
         </div>
 
         <footer>
             <p id="footerText">© 2025 Aziz Channoufi. Tutti i diritti riservati.</p>
         </footer>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeBookingModal()">&times;</span>
+            <h2 id="modalTitle" style="margin-bottom: 20px; color: #333;">Prenota una chiamata</h2>
+            <form id="bookingForm" onsubmit="handleBooking(event)">
+                <div class="form-group">
+                    <label for="name" id="labelName">Nome</label>
+                    <input type="text" id="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" id="labelEmail">Email</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="date" id="labelDate">Data preferita</label>
+                    <input type="date" id="date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="message" id="labelMessage">Messaggio</label>
+                    <textarea id="message" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn-submit" id="btnSubmit">Invia richiesta</button>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -337,28 +473,60 @@
                 description: "Ciao, mi chiamo Aziz. Sono un giovane gentile, appassionato di avventura e amante del mare. Pratico la pesca subacquea e la pesca. Sono anche un coach di autodifesa e freelance nella creazione di siti web e applicazioni mobili. Come influencer, sono felice che tu visiti questa pagina. Troverai tutti i miei contatti qui sotto. Grazie mille e a presto!",
                 emailBtn: "Contattami via email",
                 cvBtn: "Scarica il mio CV",
-                footer: "© 2025 Aziz Channoufi. Tutti i diritti riservati."
+                footer: "© 2025 Aziz Channoufi. Tutti i diritti riservati.",
+                bookBtn: "Prenota una chiamata",
+                modalTitle: "Prenota una chiamata",
+                labelName: "Nome",
+                labelEmail: "Email",
+                labelDate: "Data preferita",
+                labelMessage: "Messaggio",
+                btnSubmit: "Invia richiesta",
+                alertSuccess: "Grazie! La tua richiesta è stata inviata."
             },
             fr: {
                 title: "Aziz Channoufi - Portfolio",
                 description: "Salut, je m'appelle Aziz. Je suis un jeune homme gentil, passionné d'aventure et amoureux de la mer. Je pratique la chasse sous-marine e la pêche. Je suis également coach en self-défense et freelance dans la création de sites web et d'applications mobiles. En tant qu'influenceur, je suis ravi que vous visitiez cette page. Vous trouverez ci-dessous tous mes contacts. Merci beaucoup et à bientôt !",
                 emailBtn: "Me contacter par email",
                 cvBtn: "Télécharger mon CV",
-                footer: "© 2025 Aziz Channoufi. Tous droits réservés."
+                footer: "© 2025 Aziz Channoufi. Tous droits réservés.",
+                bookBtn: "Réserver un appel",
+                modalTitle: "Réserver un appel",
+                labelName: "Nom",
+                labelEmail: "Email",
+                labelDate: "Date préférée",
+                labelMessage: "Message",
+                btnSubmit: "Envoyer la demande",
+                alertSuccess: "Merci! Votre demande a été envoyée."
             },
             en: {
                 title: "Aziz Channoufi - Portfolio",
                 description: "Hi, my name is Aziz. I'm a kind young man, passionate about adventure and in love with the sea. I practice spearfishing and fishing. I'm also a self-defense coach and freelance in creating websites and mobile applications. As an influencer, I'm delighted that you're visiting this page. You'll find all my contacts below. Thank you very much and see you soon!",
                 emailBtn: "Contact me by email",
                 cvBtn: "Download my CV",
-                footer: "© 2025 Aziz Channoufi. All rights reserved."
+                footer: "© 2025 Aziz Channoufi. All rights reserved.",
+                bookBtn: "Book a call",
+                modalTitle: "Book a call",
+                labelName: "Name",
+                labelEmail: "Email",
+                labelDate: "Preferred Date",
+                labelMessage: "Message",
+                btnSubmit: "Send Request",
+                alertSuccess: "Thank you! Your request has been sent."
             },
             es: {
                 title: "Aziz Channoufi - Portfolio",
                 description: "Hola, me llamo Aziz. Soy un joven amable, apasionado por la aventura y enamorado del mar. Practico la pesca submarina y la pesca. También soy entrenador de autodefensa y freelance en la creación de sitios web y aplicaciones móviles. Como influencer, estoy encantado de que visites esta página. Encontrarás todos mis contactos a continuación. ¡Muchas gracias y hasta pronto!",
                 emailBtn: "Contáctame por correo electrónico",
                 cvBtn: "Descargar mi CV",
-                footer: "© 2025 Aziz Channoufi. Todos los derechos reservados."
+                footer: "© 2025 Aziz Channoufi. Todos los derechos reservados.",
+                bookBtn: "Reservar una llamada",
+                modalTitle: "Reservar una llamada",
+                labelName: "Nombre",
+                labelEmail: "Correo electrónico",
+                labelDate: "Fecha preferida",
+                labelMessage: "Mensaje",
+                btnSubmit: "Enviar solicitud",
+                alertSuccess: "¡Gracias! Tu solicitud ha sido enviada."
             }
         };
 
@@ -380,6 +548,15 @@
             // Update footer - SÉCURISÉ avec textContent
             document.getElementById('footerText').textContent = translation.footer;
 
+            // Update Booking Modal Texts
+            document.getElementById('bookBtnText').textContent = translation.bookBtn;
+            document.getElementById('modalTitle').textContent = translation.modalTitle;
+            document.getElementById('labelName').textContent = translation.labelName;
+            document.getElementById('labelEmail').textContent = translation.labelEmail;
+            document.getElementById('labelDate').textContent = translation.labelDate;
+            document.getElementById('labelMessage').textContent = translation.labelMessage;
+            document.getElementById('btnSubmit').textContent = translation.btnSubmit;
+
             // Update html lang attribute
             document.documentElement.lang = selectedLang;
 
@@ -391,7 +568,7 @@
         function handlePhotoError() {
             const photo = document.getElementById('profileImage');
             const fallback = document.getElementById('photoFallback');
-            
+
             // Cacher la photo et afficher le fallback
             photo.style.display = 'none';
             fallback.style.display = 'flex';
@@ -403,16 +580,54 @@
             const savedLang = localStorage.getItem('preferredLanguage') || 'it';
             document.getElementById('languageSelect').value = savedLang;
             changeLanguage();
-            
+
             // Configurer le gestionnaire d'erreur pour la photo
             const photo = document.getElementById('profileImage');
             photo.onerror = handlePhotoError;
-            
+
             // Vérifier si l'image est déjà chargée avec erreur
             if (photo.complete && photo.naturalHeight === 0) {
                 handlePhotoError();
             }
+
         });
+
+        // Booking Modal Logic
+        const modal = document.getElementById('bookingModal');
+
+        function openBookingModal() {
+            modal.style.display = 'flex';
+            // Piccola pausa per permettere al display:flex di applicarsi prima dell'opacità per la transizione
+            setTimeout(() => {
+                modal.classList.add('show');
+            }, 10);
+        }
+
+        function closeBookingModal() {
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300); // Attendi la fine della transizione
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                closeBookingModal();
+            }
+        }
+
+        function handleBooking(e) {
+            e.preventDefault();
+            const selectedLang = document.getElementById('languageSelect').value;
+            const message = translations[selectedLang].alertSuccess;
+
+            // Qui andrebbe la logica di invio al backend
+            // Per ora simuliamo solo il successo
+            alert(message);
+            closeBookingModal();
+            document.getElementById('bookingForm').reset();
+        }
     </script>
 </body>
 
